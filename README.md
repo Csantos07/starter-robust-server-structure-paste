@@ -18,3 +18,12 @@ This project contains the minimum setup code required to run an Express API. How
 Follow the instructions in the checkpoint for implementing the API.
 
 If you have trouble, reach out for assistance.
+
+----
+
+## Changelog
+
+- created a static db in data/pastes-data.js
+- created two routes
+ - /pastes (list)
+ - /pastes/:id (specific paste)

@@ -22,7 +22,11 @@ If you have trouble, reach out for assistance.
 ----
 
 ## Changelog
+1.17.23
+- updated to use http appropriate verbs
+- created the post and create
 
+10.26.23
 - created a static db in data/pastes-data.js
 - created two routes
  - /pastes (list)

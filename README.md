@@ -1,9 +1,6 @@
 # Starter Code: Robust Server Structure
 
-What I think needs to happen next is there is an...update method we need to make?
-
-Delete Method as well... what else. We will continue to read and add on. This should be
-the section 2.3 RESTFUL APIs
+Next we need to do validations and error/middleware stuff/ oganizing controllers and routes
 
 This server is intended to be run for some checkpoints in the Thinkful curriculum. If you have trouble getting the server to run, reach out for assistance.
 

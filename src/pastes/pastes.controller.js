@@ -6,8 +6,9 @@ function list(req, res) {
 
 function pasteExists(req, res, next) {
   const { pasteId } = req.params;
-  const foundPaste = paste.find((paste) => paste.id === Number(pasteId));
+  const foundPaste = pastes.find((paste) => paste.id === Number(pasteId));
   if (foundPaste) {
+    res.locals.paste = foundPaste;
     return next();
   }
   next({
@@ -16,10 +17,21 @@ function pasteExists(req, res, next) {
   });
 }
 
+function update(req, res) {
+  const paste = res.locals.paste;
+  const { data: { name, syntax, expiration, exposure, text } = {} } = req.body;
+
+  paste.name = name;
+  paste.syntax = syntax;
+  paste.expiration = expiration;
+  paste.exposure = exposure;
+  paste.text = text;
+
+  res.json({ data: paste });
+}
+
 function read(req, res, next) {
-  const { pasteId } = req.params;
-  const foundPaste = pastes.find((paste) => paste.id === Number(pasteId));
-  res.json({ data: foundPaste });
+  res.json({ data: res.locals.paste });
 }
 
 // New middleware function to validate the request body
@@ -88,6 +100,13 @@ function create(req, res) {
   res.status(201).json({ data: newPaste });
 }
 
+function destroy(req, res) {
+  const { pasteId } = req.params;
+  const index = pastes.findIndex((paste) => paste.id === Number(pasteId));
+  const deletedPastes = pastes.splice(index, 1);
+  res.sendStatus(204);
+}
+
 module.exports = {
   create: [
     bodyDataHas("name"),
@@ -103,4 +122,15 @@ module.exports = {
   ],
   list,
   read: [pasteExists, read],
+  update: [
+    pasteExists,
+    bodyDataHas("name"),
+    bodyDataHas("syntax"),
+    bodyDataHas("exposure"),
+    bodyDataHas("expiration"),
+    bodyDataHas("text"),
+    expirationIsValidNumber,
+    update
+  ],
+  delete: [pasteExists, destroy],
 };

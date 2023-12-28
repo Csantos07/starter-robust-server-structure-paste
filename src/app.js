@@ -1,12 +1,13 @@
 const express = require("express");
-const pastes = require("./data/pastes-data");
 const app = express();
-const pastesRouter = require("./pastes/pastes.router");
 app.use(express.json());
+const pastesRouter = require("./pastes/pastes.router");
+const usersRouter = require("./users/users.router");
 
 // TODO: Follow instructions in the checkpoint to implement ths API.
 
 app.use("/pastes", pastesRouter);
+app.use("/users", usersRouter);
 
 
 // Not found handler
